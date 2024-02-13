@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
+import { Item } from './components/Item';
 
 type Locations = {
   wolf: string;
@@ -60,9 +61,9 @@ function App() {
   }
   return (
     <>
-      <p onClick={() => setSelectedItem("wolf")}>wolf: {locations.wolf}</p>
-      <p onClick={() => setSelectedItem("sheep")}>sheep: {locations.sheep}</p>
-      <p onClick={() => setSelectedItem("cabbage")}>cabbage: {locations.cabbage}</p>
+      <Item onClick={() => setSelectedItem("wolf")} src="/wolf.jpg">{locations.wolf}</Item>
+      <Item onClick={() => setSelectedItem("sheep")} src="/sheep.jpg">{locations.sheep}</Item>
+      <Item onClick={() => setSelectedItem("cabbage")} src="/cabbage.jpg">{locations.cabbage}</Item>
       <p>boat: {locations.boat}</p>
       <br />
       <p>selected: {selectedItem}</p>
