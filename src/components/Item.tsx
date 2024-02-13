@@ -4,17 +4,18 @@ type Props = {
     src: string;
     type: string;
     onClick: () => void;
-    location: "right" | "left";
+    location: "right" | "left"
+    onMoveComplete: () => void
 }
 
 export const Item = (props: Props) => {
-    const { src, type, onClick, location } = props
-    
+    const { src, type, onClick, location, onMoveComplete } = props
+
 
     // アニメーション
     const variants = {
-        left: { x: 0 }, 
-        right: { x: 500 }, 
+        left: { x: 0 },
+        right: { x: 500 },
     };
 
     return (
@@ -23,6 +24,7 @@ export const Item = (props: Props) => {
             animate={location}
             variants={variants}
             transition={{ duration: 0.5 }}
+            onAnimationComplete={onMoveComplete}
         >
             <img src={src} alt={type} onClick={onClick} width="100px" />
         </motion.div>

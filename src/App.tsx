@@ -3,11 +3,13 @@ import './App.css';
 import { Item } from './components/Item';
 import { Boat } from './components/Boat';
 
+type Location = "right" | "left"
+
 type Locations = {
-  wolf: "right" | "left"
-  sheep: "right" | "left"
-  cabbage: "right" | "left"
-  boat: "right" | "left"
+  wolf: Location
+  sheep: Location
+  cabbage: Location
+  boat: Location
 }
 
 function App() {
@@ -26,16 +28,22 @@ function App() {
       newLocations[item] = newLocations[item] === "right" ? "left" : "right";
     }
     newLocations.boat = newLocations.boat === "right" ? "left" : "right";
+    setLocations({ ...newLocations })
+    setCount(prev => prev + 1)
+  }
 
-    const gameOverMessage = isGameOver(newLocations);
+  const onMoveComplete = () => {
+    const gameOverMessage = isGameOver(locations)
     if (gameOverMessage) {
       alert(gameOverMessage)
-    } else if (isGameWon(newLocations)) {
-      alert("Congratulations! You won!")
     }
-    setLocations(newLocations);
-    setCount(count + 1);
+    if (isGameWon(locations)) {
+      alert("Congratulations! You won!");
+    }
+    setSelectedItem(null);
   }
+
+
 
   const handleReset = () => {
     setLocations({
@@ -46,6 +54,12 @@ function App() {
     });
     setSelectedItem(null);
     setCount(0);
+  }
+
+  const handleSelectItem = (item: "wolf" | "sheep" | "cabbage" | null) => {
+    if (item && locations.boat === locations[item]) {
+      setSelectedItem(item)
+    }
   }
 
   const isGameOver = (locations: Locations) => {
@@ -66,9 +80,9 @@ function App() {
   }
   return (
     <>
-      <Item onClick={() => setSelectedItem("wolf")} src="/wolf.jpg" type="wolf" location={locations.wolf}></Item>
-      <Item onClick={() => setSelectedItem("sheep")} src="/sheep.jpg" type="sheep" location={locations.sheep}></Item>
-      <Item onClick={() => setSelectedItem("cabbage")} src="/cabbage.jpg" type="cabbage" location={locations.cabbage}></Item>
+      <Item onClick={() => handleSelectItem("wolf")} src="/wolf.jpg" type="wolf" location={locations.wolf} onMoveComplete={onMoveComplete}></Item>
+      <Item onClick={() => handleSelectItem("sheep")} src="/sheep.jpg" type="sheep" location={locations.sheep} onMoveComplete={onMoveComplete}></Item>
+      <Item onClick={() => handleSelectItem("cabbage")} src="/cabbage.jpg" type="cabbage" location={locations.cabbage} onMoveComplete={onMoveComplete}></Item>
       <br />
       <Boat></Boat>
       <p>{locations.boat}</p>
