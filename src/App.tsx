@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Item } from './components/Item';
+import { Boat } from './components/Boat';
 
 type Locations = {
   wolf: string;
@@ -25,8 +26,9 @@ function App() {
     }
     newLocations.boat = newLocations.boat === "right" ? "left" : "right";
 
-    if (isGameOver(newLocations)) {
-      alert("Game over")
+    const gameOverMessage = isGameOver(newLocations);
+    if (gameOverMessage) {
+      alert(gameOverMessage)
     } else if (isGameWon(newLocations)) {
       alert("Congratulations! You won!")
     }
@@ -61,11 +63,11 @@ function App() {
   }
   return (
     <>
-      <Item onClick={() => setSelectedItem("wolf")} src="/wolf.jpg">{locations.wolf}</Item>
-      <Item onClick={() => setSelectedItem("sheep")} src="/sheep.jpg">{locations.sheep}</Item>
-      <Item onClick={() => setSelectedItem("cabbage")} src="/cabbage.jpg">{locations.cabbage}</Item>
+      <Item onClick={() => setSelectedItem("wolf")} src="/wolf.jpg" type="wolf">{locations.wolf}</Item>
+      <Item onClick={() => setSelectedItem("sheep")} src="/sheep.jpg" type="sheep">{locations.sheep}</Item>
+      <Item onClick={() => setSelectedItem("cabbage")} src="/cabbage.jpg" type="cabbage">{locations.cabbage}</Item>
       <br />
-      <img src="/boat.png" alt="boat" width="100px"></img>
+      <Boat></Boat>
       <p>{locations.boat}</p>
       <br />
       <p>selected: {selectedItem}</p>
