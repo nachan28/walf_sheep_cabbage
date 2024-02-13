@@ -4,20 +4,21 @@ import { Item } from './components/Item';
 import { Boat } from './components/Boat';
 
 type Locations = {
-  wolf: string;
-  sheep: string;
-  cabbage: string;
-  boat: string;
+  wolf: "right" | "left"
+  sheep: "right" | "left"
+  cabbage: "right" | "left"
+  boat: "right" | "left"
 }
 
 function App() {
-  const [locations, setLocations] = useState({
+  const [locations, setLocations] = useState<Locations>({
     wolf: "right",
     sheep: "right",
     cabbage: "right",
     boat: "right",
   })
   const [selectedItem, setSelectedItem] = useState<"wolf" | "sheep" | "cabbage" | null>(null)
+  const [count, setCount] = useState(0);
 
   const handleGo = (item: "wolf" | "sheep" | "cabbage" | null) => {
     const newLocations = { ...locations }
@@ -33,6 +34,7 @@ function App() {
       alert("Congratulations! You won!")
     }
     setLocations(newLocations);
+    setCount(count + 1);
   }
 
   const handleReset = () => {
@@ -43,6 +45,7 @@ function App() {
       boat: "right",
     });
     setSelectedItem(null);
+    setCount(0);
   }
 
   const isGameOver = (locations: Locations) => {
@@ -63,14 +66,15 @@ function App() {
   }
   return (
     <>
-      <Item onClick={() => setSelectedItem("wolf")} src="/wolf.jpg" type="wolf">{locations.wolf}</Item>
-      <Item onClick={() => setSelectedItem("sheep")} src="/sheep.jpg" type="sheep">{locations.sheep}</Item>
-      <Item onClick={() => setSelectedItem("cabbage")} src="/cabbage.jpg" type="cabbage">{locations.cabbage}</Item>
+      <Item onClick={() => setSelectedItem("wolf")} src="/wolf.jpg" type="wolf" location={locations.wolf}></Item>
+      <Item onClick={() => setSelectedItem("sheep")} src="/sheep.jpg" type="sheep" location={locations.sheep}></Item>
+      <Item onClick={() => setSelectedItem("cabbage")} src="/cabbage.jpg" type="cabbage" location={locations.cabbage}></Item>
       <br />
       <Boat></Boat>
       <p>{locations.boat}</p>
       <br />
       <p>selected: {selectedItem}</p>
+      <p>{count}times</p>
 
       <button onClick={() => handleGo(selectedItem)}>GO!</button>
       <button onClick={() => setSelectedItem(null)}>Select None</button>
