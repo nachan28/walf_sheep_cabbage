@@ -45,12 +45,12 @@ function App() {
 
   const isGameOver = (locations: Locations) => {
     if (locations.wolf === locations.sheep && locations.boat !== locations.wolf && locations.cabbage !== locations.wolf) {
-      return true
+      return "The wolf ate the sheep!";
     }
     if (locations.sheep === locations.cabbage && locations.boat !== locations.sheep && locations.wolf !== locations.sheep) {
-      return true;
+      return "The sheep ate the cabbage!"
     }
-    return false;
+    return null;
   }
 
   const isGameWon = (locations: Locations) => {
@@ -64,7 +64,9 @@ function App() {
       <Item onClick={() => setSelectedItem("wolf")} src="/wolf.jpg">{locations.wolf}</Item>
       <Item onClick={() => setSelectedItem("sheep")} src="/sheep.jpg">{locations.sheep}</Item>
       <Item onClick={() => setSelectedItem("cabbage")} src="/cabbage.jpg">{locations.cabbage}</Item>
-      <p>boat: {locations.boat}</p>
+      <br />
+      <img src="/boat.png" alt="boat" width="100px"></img>
+      <p>{locations.boat}</p>
       <br />
       <p>selected: {selectedItem}</p>
 
