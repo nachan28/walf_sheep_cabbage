@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Item } from './components/Item';
 import { Boat } from './components/Boat';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 type Location = "right" | "left"
 
@@ -79,7 +81,7 @@ function App() {
     return false
   }
   return (
-    <>
+    <DndProvider backend={HTML5Backend}>
       <Item onClick={() => handleSelectItem("wolf")} src="/wolf.jpg" type="wolf" location={locations.wolf} onMoveComplete={onMoveComplete}></Item>
       <Item onClick={() => handleSelectItem("sheep")} src="/sheep.jpg" type="sheep" location={locations.sheep} onMoveComplete={onMoveComplete}></Item>
       <Item onClick={() => handleSelectItem("cabbage")} src="/cabbage.jpg" type="cabbage" location={locations.cabbage} onMoveComplete={onMoveComplete}></Item>
@@ -93,7 +95,7 @@ function App() {
       <button onClick={() => handleGo(selectedItem)}>GO!</button>
       <button onClick={() => setSelectedItem(null)}>Select None</button>
       <button onClick={() => handleReset()}>最初から</button>
-    </>
+    </DndProvider>
   )
 }
 

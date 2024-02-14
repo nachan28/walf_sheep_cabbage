@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useDrag } from "react-dnd";
 
 type Props = {
     src: string;
@@ -11,6 +12,12 @@ type Props = {
 export const Item = (props: Props) => {
     const { src, type, onClick, location, onMoveComplete } = props
 
+    const [{ isDragging }, drag] = useDrag(() => ({
+        type: type,
+        collect: monitor => ({
+            isDragging: !!monitor.isDragging(),
+        }),
+    }))
 
     // アニメーション
     const variants = {
@@ -26,7 +33,17 @@ export const Item = (props: Props) => {
             transition={{ duration: 0.5 }}
             onAnimationComplete={onMoveComplete}
         >
-            <img src={src} alt={type} onClick={onClick} width="100px" />
+            <div
+                ref={drag}
+                style={{
+                    opacity: isDragging ? 0.5 : 1,
+                    fontSize: 25,
+                    fontWeight: 'bold',
+                    cursor: 'move',
+                }}
+            >
+                <img src={src} alt={type} onClick={onClick} width="100px" />
+            </div>
         </motion.div>
     )
 }
