@@ -19,6 +19,8 @@ export const Item = (props: Props) => {
         }),
     }))
 
+    const cursorStyle = isDragging ? "grabbing" : "grab";
+
     // アニメーション
     const variants = {
         left: { x: 0 },
@@ -36,13 +38,12 @@ export const Item = (props: Props) => {
             <div
                 ref={drag}
                 style={{
-                    opacity: isDragging ? 0.5 : 1,
                     fontSize: 25,
                     fontWeight: 'bold',
-                    cursor: 'move',
+                    cursor: cursorStyle,
                 }}
             >
-                <img src={src} alt={type} onClick={onClick} width="100px" />
+                <img src={src} alt={type} onClick={onClick} width="150px" />
             </div>
         </motion.div>
     )
