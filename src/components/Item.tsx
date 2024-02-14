@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
 import { useDrag } from "react-dnd";
+import { Location } from "../App";
 
 type Props = {
     src: string;
     type: string;
     onClick: () => void;
-    location: "right" | "left"
+    location: Location
     onMoveComplete: () => void
 }
 
@@ -14,6 +15,7 @@ export const Item = (props: Props) => {
 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: type,
+        item: {type: type, src: src},
         collect: monitor => ({
             isDragging: !!monitor.isDragging(),
         }),
@@ -38,6 +40,7 @@ export const Item = (props: Props) => {
             <div
                 ref={drag}
                 style={{
+                    scale: 0.8,
                     fontSize: 25,
                     fontWeight: 'bold',
                     cursor: cursorStyle,

@@ -5,7 +5,7 @@ import { Boat } from './components/Boat';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
-type Location = "right" | "left"
+export type Location = "right" | "left"
 
 type Locations = {
   wolf: Location
@@ -86,9 +86,8 @@ function App() {
       <Item onClick={() => handleSelectItem("sheep")} src="/sheep.jpg" type="sheep" location={locations.sheep} onMoveComplete={onMoveComplete}></Item>
       <Item onClick={() => handleSelectItem("cabbage")} src="/cabbage.jpg" type="cabbage" location={locations.cabbage} onMoveComplete={onMoveComplete}></Item>
       <br />
-      <Boat></Boat>
+      <Boat location={locations.boat}></Boat>
       <p>{locations.boat}</p>
-      <br />
       <p>selected: {selectedItem}</p>
       <p>{count}times</p>
 
