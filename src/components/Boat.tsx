@@ -23,19 +23,6 @@ export const Boat = () => {
                 height: '100%',
             }}
         >
-            {isOver && (
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            height: '100%',
-            width: '100%',
-            zIndex: 1,
-            backgroundColor: 'yellow',
-          }}
-        />
-      )}
             <img src="/boat.png" alt="boat" width="200px" />
         </div>
     )
