@@ -57,7 +57,7 @@ export const Boat = (props: Props) => {
                 }}
             >
                 {boatItem && (
-                    <img src={boatItem.src} alt={boatItem.type} width="100px" />
+                    <img src={boatItem.src} alt={boatItem.type} width="150px" />
                 )}
                 <img src="/boat.png" alt="boat" width="200px" />
             </div>

@@ -82,9 +82,9 @@ function App() {
   }
   return (
     <DndProvider backend={HTML5Backend}>
-      <Item onClick={() => handleSelectItem("wolf")} src="/wolf.jpg" type="wolf" location={locations.wolf} onMoveComplete={onMoveComplete}></Item>
-      <Item onClick={() => handleSelectItem("sheep")} src="/sheep.jpg" type="sheep" location={locations.sheep} onMoveComplete={onMoveComplete}></Item>
-      <Item onClick={() => handleSelectItem("cabbage")} src="/cabbage.jpg" type="cabbage" location={locations.cabbage} onMoveComplete={onMoveComplete}></Item>
+      <Item onClick={() => handleSelectItem("wolf")} src="/wolf.png" type="wolf" location={locations.wolf} onMoveComplete={onMoveComplete}></Item>
+      <Item onClick={() => handleSelectItem("sheep")} src="/sheep.png" type="sheep" location={locations.sheep} onMoveComplete={onMoveComplete}></Item>
+      <Item onClick={() => handleSelectItem("cabbage")} src="/cabbage.png" type="cabbage" location={locations.cabbage} onMoveComplete={onMoveComplete}></Item>
       <br />
       <Boat location={locations.boat}></Boat>
       <p>{locations.boat}</p>
