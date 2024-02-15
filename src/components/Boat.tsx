@@ -1,6 +1,5 @@
 import { useDrop } from "react-dnd";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
 import { BoatLocation, Locations } from "../App";
 
 type Props = {
@@ -37,13 +36,11 @@ export const Boat = (props: Props) => {
     const handleItemDropped = (item: DraggableItem) => {
         if (selectedItem) {
             console.log("if")
-            console.log(locations)
-            setLocations((prev: Locations) => ({...prev, [selectedItem.type]: locations[item.type], [item.type]: "onboat"}))
+            setLocations({ ...locations, [selectedItem.type]: locations[item.type], [item.type]: "onboat" })
             setSelectedItem(item);
-        }else {
+        } else {
             console.log("else")
-            console.log(locations)
-            setLocations((prev: Locations) => ({...prev, [item.type]: "onboat"}))
+            setLocations({ ...locations, [item.type]: "onboat" })
             setSelectedItem(item);
         }
     }

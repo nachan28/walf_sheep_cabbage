@@ -11,7 +11,6 @@ type Props = {
 
 export const Item = (props: Props) => {
     const { src, type, location} = props
-    const [style, setStyle] = useState({});
 
 
     useEffect(() => {
@@ -37,7 +36,7 @@ export const Item = (props: Props) => {
                     cursor: cursorStyle,
                 }}
             >
-                <img src={src} alt={type} width="250px" style={style} />
+                <img src={src} alt={type} width="250px" />
             </div>
     )
 }
