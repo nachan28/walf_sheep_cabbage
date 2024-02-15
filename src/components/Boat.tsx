@@ -16,9 +16,9 @@ type DraggableItem = {
 
 export const Boat = (props: Props) => {
     const { boatLocation } = props;
-    useEffect(() => {
-        console.log("Updated locations in Boat:", boatLocation);
-    }, [boatLocation]);
+    // useEffect(() => {
+    //     console.log("Updated locations in Boat:", boatLocation);
+    // }, [boatLocation]);
     const [boatItem, setBoatItem] = useState<DraggableItem | null>(null)
     const [{ isOver }, drop] = useDrop(
         () => ({

@@ -6,13 +6,11 @@ import { useEffect, useState } from "react";
 type Props = {
     src: string;
     type: "wolf" | "sheep" | "cabbage"
-    onClick: () => void;
     location: Location
-    onMoveComplete: () => void
 }
 
 export const Item = (props: Props) => {
-    const { src, type, onClick, location, onMoveComplete } = props
+    const { src, type, location} = props
     const [style, setStyle] = useState({});
 
 
@@ -54,7 +52,7 @@ export const Item = (props: Props) => {
                     cursor: cursorStyle,
                 }}
             >
-                <img src={src} alt={type} onClick={onClick} width="150px" style={style} />
+                <img src={src} alt={type} width="150px" style={style} />
             </div>
         // </motion.div>
     )

@@ -1,10 +1,13 @@
+import { Locations } from "../App"
 import { Item } from "./Item"
 
 export type SideItemProps = {
-    items: string[]
+    items: ("wolf" | "sheep" | "cabbage")[]
+    locations: Locations
 }
 
-export const RightSideItems = (items: SideItemProps) => {
+export const RightSideItems = ({ items, locations }: SideItemProps) => {
+
     return (
         <div className="right-item-container" style={{
             position: "fixed",
@@ -13,16 +16,12 @@ export const RightSideItems = (items: SideItemProps) => {
             margin: "20px"
         }}>
             <p>RightSide</p>
-            {items.items.map((item, index) => (
-                <>
-                    <div key={index} className="right-item">
-                        {item}
-                        <img src={item === "wolf" ? "/wolf.png" :
-                            item === "sheep" ? "/sheep.png" : "/cabbage.png"}
-                            alt={item}
-                            width="100px"/>
-                    </div>
-                </>
+            {items.map((item, index) => (
+                <Item src={item === "wolf" ? "/wolf.png" :
+                    item === "sheep" ? "/sheep.png" : "/cabbage.png"}
+                    type={item}
+                    location={locations[item]}
+                    key={index}></Item>
             ))}
         </div>
     )

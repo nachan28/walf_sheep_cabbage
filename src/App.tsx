@@ -60,11 +60,11 @@ function App() {
     setCount(0);
   }
 
-  const handleSelectItem = (item: "wolf" | "sheep" | "cabbage" | null) => {
-    if (item && boatLocation === locations[item]) {
-      // setSelectedItem(item)
-    }
-  }
+  // const handleSelectItem = (item: "wolf" | "sheep" | "cabbage" | null) => {
+  //   if (item && boatLocation === locations[item]) {
+  //     // setSelectedItem(item)
+  //   }
+  // }
 
   const isGameOver = (locations: Locations) => {
     if (locations.wolf === locations.sheep && boatLocation !== locations.wolf && locations.cabbage !== locations.wolf) {
@@ -86,18 +86,18 @@ function App() {
   // "left" と "right" のアイテムリストを生成
   const leftItems = Object.entries(locations)
     .filter(([key, value]) => value === "left")
-    .map(([key]) => key);
+    .map(([key]) => key) as ("wolf" | "sheep" | "cabbage")[];
   
   const rightItems = Object.entries(locations)
     .filter(([key, value]) => value === "right")
-    .map(([key]) => key);
+    .map(([key]) => key) as ("wolf" | "sheep" | "cabbage")[];
   
   return (
     <DndProvider backend={HTML5Backend}>
       <div style={{display: "flex", justifyContent:"space-around", flexDirection: "column"}}>
         <Boat boatLocation={boatLocation}></Boat>
-        <LeftSideItems items={leftItems}></LeftSideItems>
-        <RightSideItems items={rightItems}></RightSideItems>
+        <LeftSideItems items={leftItems} locations={locations}></LeftSideItems>
+        <RightSideItems items={rightItems} locations={locations}></RightSideItems>
       </div>
       <p>{boatLocation}</p>
       {/* <p>selected: {selectedItem}</p> */}
