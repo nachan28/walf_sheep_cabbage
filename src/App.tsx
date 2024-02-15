@@ -48,7 +48,6 @@ function App() {
       setLocations((prev: Locations) => ({ ...prev, [selectedItem.type]: boatLocation }));
     }
     setSelectedItem(null);
-    // console.log(locations)
   }
 
 
@@ -64,12 +63,6 @@ function App() {
     setCount(0);
   }
 
-  // const handleSelectItem = (item: "wolf" | "sheep" | "cabbage" | null) => {
-  //   if (item && boatLocation === locations[item]) {
-  //     // setSelectedItem(item)
-  //   }
-  // }
-
   const isGameOver = (locations: Locations) => {
     if (locations.wolf === locations.sheep && boatLocation !== locations.wolf) {
       return "The wolf ate the sheep!";
@@ -81,7 +74,6 @@ function App() {
   }
 
   const isGameWon = (locations: Locations) => {
-    console.log("isGameWon", locations);
     if (locations.wolf === "left" && locations.sheep === "left" && locations.cabbage === "left") {
       return true
     }
@@ -104,16 +96,9 @@ function App() {
         <RightSideItems items={rightItems} locations={locations}></RightSideItems>
         <Boat boatLocation={boatLocation} selectedItem={selectedItem} setSelectedItem={setSelectedItem} onMoveComplete={onMoveComplete} setLocations={setLocations} locations={locations}></Boat>
       </div>
-      <p>{boatLocation}</p>
-      {/* <p>selected: {selectedItem}</p> */}
       <p>{count}times</p>
-      <p>{selectedItem && locations[selectedItem.type]}</p>
 
-      <p>{selectedItem && selectedItem.type}</p>
-      <p>{leftItems}</p>
-      <p>{locations.sheep}</p>
       <button onClick={() => handleGo()}>GO!</button>
-      {/* <button onClick={() => setSelectedItem(null)}>Select None</button> */}
       <button onClick={() => handleReset()}>最初から</button>
     </DndProvider>
   )

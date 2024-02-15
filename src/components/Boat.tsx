@@ -35,17 +35,12 @@ export const Boat = (props: Props) => {
 
 
     const handleItemDropped = (item: DraggableItem) => {
-        // setSelectedItem(item)
         console.log(item.type);
         if (selectedItem) {
             console.log("if")
-            // const originalLocation = locations[selectedItem.type];
             setLocations((prev: Locations) => ({...prev, [selectedItem.type]: locations[item.type], [item.type]: "onboat"}))
             setSelectedItem(item);
         }else {
-            console.log("else")
-            console.log(locations)
-            // setLocations({...locations, [item.type]: "onboat"})
             setLocations((prev: Locations) => ({...prev, [item.type]: "onboat"}))
             setSelectedItem(item);
         }

@@ -15,13 +15,11 @@ export const Item = (props: Props) => {
 
 
     useEffect(() => {
-        // setStyle(getItemStyle(location));
     }, [location]);
 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: type,
         item: {type: type, src: src},
-        // canDrag: () => locations[type] === boatLocation,
         collect: monitor => ({
             isDragging: !!monitor.isDragging(),
         }),
@@ -29,20 +27,7 @@ export const Item = (props: Props) => {
 
     const cursorStyle = isDragging ? "grabbing" : "grab";
 
-    // アニメーション
-    // const variants = {
-    //     left: { x: 0 },
-    //     right: { x: 700 },
-    // };
-
     return (
-        // <motion.div
-        //     initial={locations[type]}
-        //     animate={locations[type]}
-        //     variants={variants}
-        //     transition={{ duration: 0.5 }}
-        //     onAnimationComplete={onMoveComplete}
-        // >
             <div
                 ref={drag}
                 style={{
@@ -54,6 +39,5 @@ export const Item = (props: Props) => {
             >
                 <img src={src} alt={type} width="150px" style={style} />
             </div>
-        // </motion.div>
     )
 }
