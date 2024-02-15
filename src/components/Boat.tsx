@@ -1,12 +1,15 @@
 import { useDrop } from "react-dnd";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { BoatLocation } from "../App";
+import { BoatLocation, Locations } from "../App";
 
 type Props = {
     boatLocation: BoatLocation
     selectedItem: DraggableItem | null
     setSelectedItem: (item: DraggableItem) => void
+    onMoveComplete: () => void
+    locations: Locations
+    setLocations: (locations: Locations) => void
 }
 
 export type DraggableItem = {
@@ -17,15 +20,17 @@ export type DraggableItem = {
 
 
 export const Boat = (props: Props) => {
-    const { boatLocation, selectedItem, setSelectedItem } = props;
+    const { boatLocation, selectedItem, setSelectedItem, onMoveComplete, setLocations, locations } = props;
     // useEffect(() => {
-    //     console.log("Updated locations in Boat:", boatLocation);
-    // }, [boatLocation]);
-    // const [boatItem, setBoatItem] = useState<DraggableItem | null>(null)
+    //     if (selectedItem) {
+    //         setLocations({ ...locations, [selectedItem.type]: "onboat" })
+    //     }
+    // }, [selectedItem])
+
     const [{ isOver }, drop] = useDrop(
         () => ({
             accept: ["wolf", "sheep", "cabbage"],
-            // canDrop: (item) => locations[item.type] === locations.boat,
+            canDrop: (item) => locations[item.type] === boatLocation,
             drop: (item: DraggableItem) => handleItemDropped(item),
             collect: monitor => ({
                 isOver: !!monitor.isOver()
@@ -33,12 +38,24 @@ export const Boat = (props: Props) => {
         })
     )
 
+
     const handleItemDropped = (item: DraggableItem) => {
-        setSelectedItem({ ...item })
+        // setSelectedItem(item)
+        console.log(item.type);
+        if (selectedItem) {
+            console.log("if")
+            // const originalLocation = locations[selectedItem.type];
+            setLocations({...locations, [selectedItem.type]: locations[item.type], [item.type]: "onboat"})
+            setSelectedItem(item);
+        }else {
+            console.log("else")
+            setLocations({...locations, [item.type]: "onboat"})
+            setSelectedItem(item);
+        }
     }
 
     const variants = {
-        left: { x: 0 },
+        left: { x: 200 },
         right: { x: 700 },
     };
 
@@ -52,11 +69,11 @@ export const Boat = (props: Props) => {
                 position: 'relative',
                 width: '200px',
             }}
+            onAnimationComplete={onMoveComplete}
         >
             <div
                 ref={drop}
                 style={{
-                    position: 'relative',
                 }}
             >
                 {selectedItem && (

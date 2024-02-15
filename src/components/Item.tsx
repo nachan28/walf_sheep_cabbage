@@ -21,7 +21,7 @@ export const Item = (props: Props) => {
     const [{ isDragging }, drag] = useDrag(() => ({
         type: type,
         item: {type: type, src: src},
-        // canDrag: () => locations[type] === locations.boat,
+        // canDrag: () => locations[type] === boatLocation,
         collect: monitor => ({
             isDragging: !!monitor.isDragging(),
         }),

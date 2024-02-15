@@ -9,7 +9,6 @@ export const LeftSideItems = ({ items, locations }: SideItemProps) => {
             left: "0",
             margin: "20px"
         }}>
-            <p>LeftSide</p>
             {items.map((item, index) => (
                 <Item src={item === "wolf" ? "/wolf.png" :
                 item === "sheep" ? "/sheep.png" : "/cabbage.png"}

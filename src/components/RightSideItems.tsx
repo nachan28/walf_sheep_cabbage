@@ -15,7 +15,6 @@ export const RightSideItems = ({ items, locations }: SideItemProps) => {
             right: "0",
             margin: "20px"
         }}>
-            <p>RightSide</p>
             {items.map((item, index) => (
                 <Item src={item === "wolf" ? "/wolf.png" :
                     item === "sheep" ? "/sheep.png" : "/cabbage.png"}
