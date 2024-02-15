@@ -21,11 +21,6 @@ export type DraggableItem = {
 
 export const Boat = (props: Props) => {
     const { boatLocation, selectedItem, setSelectedItem, onMoveComplete, setLocations, locations } = props;
-    // useEffect(() => {
-    //     if (selectedItem) {
-    //         setLocations({ ...locations, [selectedItem.type]: "onboat" })
-    //     }
-    // }, [selectedItem])
 
     const [{ isOver }, drop] = useDrop(
         () => ({
@@ -49,6 +44,7 @@ export const Boat = (props: Props) => {
             setSelectedItem(item);
         }else {
             console.log("else")
+            console.log(locations)
             setLocations({...locations, [item.type]: "onboat"})
             setSelectedItem(item);
         }

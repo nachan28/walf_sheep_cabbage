@@ -29,11 +29,6 @@ function App() {
   const [count, setCount] = useState(0);
 
   const handleGo = () => {
-    const newLocations = { ...locations }
-    // if (item) {
-    //   newLocations[item] = newLocations[item] === "right" ? "left" : "right";
-    // };
-    setLocations(newLocations)
     setBoatLocation(boatLocation === "right" ? "left" : "right")
     setCount(prev => prev + 1)
   }
