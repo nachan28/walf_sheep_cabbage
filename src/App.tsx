@@ -95,9 +95,6 @@ function App() {
   return (
     <DndProvider backend={HTML5Backend}>
       <div style={{display: "flex", justifyContent:"space-around", flexDirection: "column"}}>
-        <Item onClick={() => handleSelectItem("wolf")} src="/wolf.png" type="wolf" location={locations.wolf} onMoveComplete={onMoveComplete}></Item>
-        <Item onClick={() => handleSelectItem("sheep")} src="/sheep.png" type="sheep" location={locations.sheep} onMoveComplete={onMoveComplete}></Item>
-        <Item onClick={() => handleSelectItem("cabbage")} src="/cabbage.png" type="cabbage" location={locations.cabbage} onMoveComplete={onMoveComplete}></Item>
         <Boat locations={locations}></Boat>
         <LeftSideItems items={leftItems}></LeftSideItems>
         <RightSideItems items={rightItems}></RightSideItems>
