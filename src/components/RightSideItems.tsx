@@ -15,12 +15,12 @@ export const RightSideItems = ({ items, locations }: SideItemProps) => {
             right: "0",
             margin: "20px"
         }}>
-            {items.map((item, index) => (
+            {items.map((item) => (
                 <Item src={item === "wolf" ? "/wolf.png" :
                     item === "sheep" ? "/sheep.png" : "/cabbage.png"}
                     type={item}
                     location={locations[item]}
-                    key={index}></Item>
+                    key={item}></Item>
             ))}
         </div>
     )
