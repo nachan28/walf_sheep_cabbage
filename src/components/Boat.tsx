@@ -5,9 +5,11 @@ import { BoatLocation } from "../App";
 
 type Props = {
     boatLocation: BoatLocation
+    selectedItem: DraggableItem | null
+    setSelectedItem: (item: DraggableItem) => void
 }
 
-type DraggableItem = {
+export type DraggableItem = {
     type: "wolf" | "sheep" | "cabbage";
     src: string;
 }
@@ -15,11 +17,11 @@ type DraggableItem = {
 
 
 export const Boat = (props: Props) => {
-    const { boatLocation } = props;
+    const { boatLocation, selectedItem, setSelectedItem } = props;
     // useEffect(() => {
     //     console.log("Updated locations in Boat:", boatLocation);
     // }, [boatLocation]);
-    const [boatItem, setBoatItem] = useState<DraggableItem | null>(null)
+    // const [boatItem, setBoatItem] = useState<DraggableItem | null>(null)
     const [{ isOver }, drop] = useDrop(
         () => ({
             accept: ["wolf", "sheep", "cabbage"],
@@ -32,7 +34,7 @@ export const Boat = (props: Props) => {
     )
 
     const handleItemDropped = (item: DraggableItem) => {
-        setBoatItem({ ...item })
+        setSelectedItem({ ...item })
     }
 
     const variants = {
@@ -57,8 +59,8 @@ export const Boat = (props: Props) => {
                     position: 'relative',
                 }}
             >
-                {boatItem && (
-                    <img src={boatItem.src} alt={boatItem.type} width="150px" style={{
+                {selectedItem && (
+                    <img src={selectedItem.src} alt={selectedItem.type} width="150px" style={{
                         position: "absolute",
                         zIndex: -1,
                     }} />

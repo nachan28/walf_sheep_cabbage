@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { Item } from './components/Item';
+// import { Item } from './components/Item';
 import { Boat } from './components/Boat';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { LeftSideItems } from './components/LeftSideItems';
 import { RightSideItems } from './components/RightSideItems';
+import { DraggableItem } from './components/Boat';
 
 export type Location = "right" | "left" | "onboat"
 export type BoatLocation = "right" | "left"
@@ -24,7 +25,7 @@ function App() {
   })
 
   const [boatLocation, setBoatLocation] = useState<BoatLocation>("right");
-  // const [selectedItem, setSelectedItem] = useState<"wolf" | "sheep" | "cabbage" | null>(null)
+  const [selectedItem, setSelectedItem] = useState<DraggableItem | null>(null)
   const [count, setCount] = useState(0);
 
   const handleGo = () => {
@@ -95,9 +96,9 @@ function App() {
   return (
     <DndProvider backend={HTML5Backend}>
       <div style={{display: "flex", justifyContent:"space-around", flexDirection: "column"}}>
-        <Boat boatLocation={boatLocation}></Boat>
         <LeftSideItems items={leftItems} locations={locations}></LeftSideItems>
         <RightSideItems items={rightItems} locations={locations}></RightSideItems>
+        <Boat boatLocation={boatLocation} selectedItem={selectedItem} setSelectedItem={setSelectedItem}></Boat>
       </div>
       <p>{boatLocation}</p>
       {/* <p>selected: {selectedItem}</p> */}
