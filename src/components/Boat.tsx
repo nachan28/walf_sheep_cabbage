@@ -35,20 +35,22 @@ export const Boat = (props: Props) => {
 
 
     const handleItemDropped = (item: DraggableItem) => {
-        console.log(item.type);
         if (selectedItem) {
             console.log("if")
+            console.log(locations)
             setLocations((prev: Locations) => ({...prev, [selectedItem.type]: locations[item.type], [item.type]: "onboat"}))
             setSelectedItem(item);
         }else {
+            console.log("else")
+            console.log(locations)
             setLocations((prev: Locations) => ({...prev, [item.type]: "onboat"}))
             setSelectedItem(item);
         }
     }
 
     const variants = {
-        left: { x: 200 },
-        right: { x: 700 },
+        left: { x: 500 },
+        right: { x: 1000 },
     };
 
     return (
@@ -69,12 +71,12 @@ export const Boat = (props: Props) => {
                 }}
             >
                 {selectedItem && (
-                    <img src={selectedItem.src} alt={selectedItem.type} width="150px" style={{
+                    <img src={selectedItem.src} alt={selectedItem.type} width="200px" style={{
                         position: "absolute",
                         zIndex: -1,
                     }} />
                 )}
-                <img src="/boat.png" alt="boat" width="200px" />
+                <img src="/boat.png" alt="boat" width="300px" />
             </div>
         </motion.div>
     )

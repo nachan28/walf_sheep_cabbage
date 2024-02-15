@@ -37,7 +37,7 @@ export const Item = (props: Props) => {
                     cursor: cursorStyle,
                 }}
             >
-                <img src={src} alt={type} width="150px" style={style} />
+                <img src={src} alt={type} width="250px" style={style} />
             </div>
     )
 }
