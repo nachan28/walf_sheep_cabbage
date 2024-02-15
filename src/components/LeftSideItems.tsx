@@ -1,6 +1,7 @@
+import { Item } from "./Item"
 import { SideItemProps } from "./RightSideItems"
 
-export const LeftSideItems = (items: SideItemProps) => {
+export const LeftSideItems = ({ items, locations }: SideItemProps) => {
     return (
         <div className="left-item-container" style={{
             position: "fixed",
@@ -9,10 +10,12 @@ export const LeftSideItems = (items: SideItemProps) => {
             margin: "20px"
         }}>
             <p>LeftSide</p>
-            {items.items.map((item, index) => (
-                <div key={index} className="left-item">
-                    {item}
-                </div>
+            {items.map((item, index) => (
+                <Item src={item === "wolf" ? "/wolf.png" :
+                item === "sheep" ? "/sheep.png" : "/cabbage.png"}
+                type={item}
+                location={locations[item]}
+                key={index}></Item>
             ))}
         </div>
     )
