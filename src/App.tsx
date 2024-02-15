@@ -5,9 +5,9 @@ import { Boat } from './components/Boat';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
-export type Location = "right" | "left"
+export type Location = "right" | "left" | "onboat"
 
-type Locations = {
+export type Locations = {
   wolf: Location
   sheep: Location
   cabbage: Location
@@ -21,16 +21,16 @@ function App() {
     cabbage: "right",
     boat: "right",
   })
-  const [selectedItem, setSelectedItem] = useState<"wolf" | "sheep" | "cabbage" | null>(null)
+  // const [selectedItem, setSelectedItem] = useState<"wolf" | "sheep" | "cabbage" | null>(null)
   const [count, setCount] = useState(0);
 
-  const handleGo = (item: "wolf" | "sheep" | "cabbage" | null) => {
+  const handleGo = () => {
     const newLocations = { ...locations }
-    if (item) {
-      newLocations[item] = newLocations[item] === "right" ? "left" : "right";
-    }
+    // if (item) {
+    //   newLocations[item] = newLocations[item] === "right" ? "left" : "right";
+    // }
     newLocations.boat = newLocations.boat === "right" ? "left" : "right";
-    setLocations({ ...newLocations })
+    setLocations(newLocations)
     setCount(prev => prev + 1)
   }
 
@@ -42,7 +42,7 @@ function App() {
     if (isGameWon(locations)) {
       alert("Congratulations! You won!");
     }
-    setSelectedItem(null);
+    // setSelectedItem(null);
   }
 
 
@@ -54,13 +54,13 @@ function App() {
       cabbage: "right",
       boat: "right",
     });
-    setSelectedItem(null);
+    // setSelectedItem(null);
     setCount(0);
   }
 
   const handleSelectItem = (item: "wolf" | "sheep" | "cabbage" | null) => {
     if (item && locations.boat === locations[item]) {
-      setSelectedItem(item)
+      // setSelectedItem(item)
     }
   }
 
@@ -82,17 +82,18 @@ function App() {
   }
   return (
     <DndProvider backend={HTML5Backend}>
-      <Item onClick={() => handleSelectItem("wolf")} src="/wolf.png" type="wolf" location={locations.wolf} onMoveComplete={onMoveComplete}></Item>
-      <Item onClick={() => handleSelectItem("sheep")} src="/sheep.png" type="sheep" location={locations.sheep} onMoveComplete={onMoveComplete}></Item>
-      <Item onClick={() => handleSelectItem("cabbage")} src="/cabbage.png" type="cabbage" location={locations.cabbage} onMoveComplete={onMoveComplete}></Item>
-      <br />
-      <Boat location={locations.boat}></Boat>
+      <div style={{display: "flex", justifyContent:"space-around", flexDirection: "column"}}>
+        <Item onClick={() => handleSelectItem("wolf")} src="/wolf.png" type="wolf" location={locations.wolf} onMoveComplete={onMoveComplete}></Item>
+        <Item onClick={() => handleSelectItem("sheep")} src="/sheep.png" type="sheep" location={locations.sheep} onMoveComplete={onMoveComplete}></Item>
+        <Item onClick={() => handleSelectItem("cabbage")} src="/cabbage.png" type="cabbage" location={locations.cabbage} onMoveComplete={onMoveComplete}></Item>
+        <Boat locations={locations}></Boat>
+      </div>
       <p>{locations.boat}</p>
-      <p>selected: {selectedItem}</p>
+      {/* <p>selected: {selectedItem}</p> */}
       <p>{count}times</p>
 
-      <button onClick={() => handleGo(selectedItem)}>GO!</button>
-      <button onClick={() => setSelectedItem(null)}>Select None</button>
+      <button onClick={() => handleGo()}>GO!</button>
+      {/* <button onClick={() => setSelectedItem(null)}>Select None</button> */}
       <button onClick={() => handleReset()}>最初から</button>
     </DndProvider>
   )

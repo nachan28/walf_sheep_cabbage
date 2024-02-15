@@ -1,10 +1,11 @@
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import { useDrag } from "react-dnd";
 import { Location } from "../App";
+import { useEffect, useState } from "react";
 
 type Props = {
     src: string;
-    type: string;
+    type: "wolf" | "sheep" | "cabbage"
     onClick: () => void;
     location: Location
     onMoveComplete: () => void
@@ -12,10 +13,17 @@ type Props = {
 
 export const Item = (props: Props) => {
     const { src, type, onClick, location, onMoveComplete } = props
+    const [style, setStyle] = useState({});
+
+
+    useEffect(() => {
+        // setStyle(getItemStyle(location));
+    }, [location]);
 
     const [{ isDragging }, drag] = useDrag(() => ({
         type: type,
         item: {type: type, src: src},
+        // canDrag: () => locations[type] === locations.boat,
         collect: monitor => ({
             isDragging: !!monitor.isDragging(),
         }),
@@ -24,19 +32,19 @@ export const Item = (props: Props) => {
     const cursorStyle = isDragging ? "grabbing" : "grab";
 
     // アニメーション
-    const variants = {
-        left: { x: 0 },
-        right: { x: 500 },
-    };
+    // const variants = {
+    //     left: { x: 0 },
+    //     right: { x: 700 },
+    // };
 
     return (
-        <motion.div
-            initial={location}
-            animate={location}
-            variants={variants}
-            transition={{ duration: 0.5 }}
-            onAnimationComplete={onMoveComplete}
-        >
+        // <motion.div
+        //     initial={locations[type]}
+        //     animate={locations[type]}
+        //     variants={variants}
+        //     transition={{ duration: 0.5 }}
+        //     onAnimationComplete={onMoveComplete}
+        // >
             <div
                 ref={drag}
                 style={{
@@ -46,8 +54,8 @@ export const Item = (props: Props) => {
                     cursor: cursorStyle,
                 }}
             >
-                <img src={src} alt={type} onClick={onClick} width="150px" />
+                <img src={src} alt={type} onClick={onClick} width="150px" style={style} />
             </div>
-        </motion.div>
+        // </motion.div>
     )
 }

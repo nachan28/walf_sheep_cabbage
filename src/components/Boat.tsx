@@ -1,45 +1,50 @@
 import { useDrop } from "react-dnd";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Location } from "../App";
+import { Locations } from "../App";
 
 type Props = {
-    location: Location;
+    locations: Locations;
 }
 
-type Item = {
-    type: string;
+type DraggableItem = {
+    type: "wolf" | "sheep" | "cabbage";
     src: string;
 }
 
 
 
 export const Boat = (props: Props) => {
-    const { location } = props;
-    const [boatItem, setBoatItem] = useState<Item | null>(null)
+    const { locations } = props;
+    useEffect(() => {
+        console.log("Updated locations in Boat:", locations);
+    }, [locations]);
+    const [boatItem, setBoatItem] = useState<DraggableItem | null>(null)
     const [{ isOver }, drop] = useDrop(
         () => ({
             accept: ["wolf", "sheep", "cabbage"],
-            drop: (item: Item) => handleItemDropped(item),
+            // canDrop: (item) => locations[item.type] === locations.boat,
+            drop: (item: DraggableItem) => handleItemDropped(item),
             collect: monitor => ({
                 isOver: !!monitor.isOver()
             })
         })
     )
 
-    const handleItemDropped = (item: Item) => {
+    const handleItemDropped = (item: DraggableItem) => {
+        console.log(locations[item.type], locations.boat)
         setBoatItem({ ...item })
     }
 
     const variants = {
         left: { x: 0 },
-        right: { x: 500 },
+        right: { x: 700 },
     };
 
     return (
         <motion.div
-            initial={location}
-            animate={location}
+            initial={locations.boat}
+            animate={locations.boat}
             variants={variants}
             transition={{ duration: 0.5 }}
             style={{
@@ -51,13 +56,13 @@ export const Boat = (props: Props) => {
                 ref={drop}
                 style={{
                     position: 'relative',
-                    width: '100%',
-                    height: '100%',
-                    // zIndex: 1
                 }}
             >
                 {boatItem && (
-                    <img src={boatItem.src} alt={boatItem.type} width="150px" />
+                    <img src={boatItem.src} alt={boatItem.type} width="150px" style={{
+                        position: "absolute",
+                        zIndex: -1,
+                    }} />
                 )}
                 <img src="/boat.png" alt="boat" width="200px" />
             </div>
