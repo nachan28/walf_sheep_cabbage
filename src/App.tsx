@@ -28,6 +28,12 @@ function App() {
   const [selectedItem, setSelectedItem] = useState<DraggableItem | null>(null)
   const [count, setCount] = useState(0);
 
+  useEffect(() => {
+    if (isGameWon(locations)) {
+      alert("Congratulations! You won!");
+    }
+  }, [locations])
+
   const handleGo = () => {
     setBoatLocation(boatLocation === "right" ? "left" : "right")
     setCount(prev => prev + 1)
@@ -38,79 +44,79 @@ function App() {
     if (gameOverMessage) {
       alert(gameOverMessage)
     }
-    if (isGameWon(locations)) {
-      alert("Congratulations! You won!");
-    }
     if (selectedItem) {
-      setLocations({...locations, [selectedItem.type]: boatLocation});
+      setLocations((prev: Locations) => ({ ...prev, [selectedItem.type]: boatLocation }));
     }
-  setSelectedItem(null);
-}
-
-
-
-const handleReset = () => {
-  setLocations({
-    wolf: "right",
-    sheep: "right",
-    cabbage: "right",
-  });
-  setSelectedItem(null);
-  setBoatLocation("right");
-  setCount(0);
-}
-
-// const handleSelectItem = (item: "wolf" | "sheep" | "cabbage" | null) => {
-//   if (item && boatLocation === locations[item]) {
-//     // setSelectedItem(item)
-//   }
-// }
-
-const isGameOver = (locations: Locations) => {
-  if (locations.wolf === locations.sheep && boatLocation !== locations.wolf && locations.cabbage !== locations.wolf) {
-    return "The wolf ate the sheep!";
+    setSelectedItem(null);
+    // console.log(locations)
   }
-  if (locations.sheep === locations.cabbage && boatLocation !== locations.sheep && locations.wolf !== locations.sheep) {
-    return "The sheep ate the cabbage!"
+
+
+
+  const handleReset = () => {
+    setLocations({
+      wolf: "right",
+      sheep: "right",
+      cabbage: "right",
+    });
+    setSelectedItem(null);
+    setBoatLocation("right");
+    setCount(0);
   }
-  return null;
-}
 
-const isGameWon = (locations: Locations) => {
-  if (locations.wolf === "left" && locations.sheep === "left" && locations.cabbage === "left") {
-    return true
+  // const handleSelectItem = (item: "wolf" | "sheep" | "cabbage" | null) => {
+  //   if (item && boatLocation === locations[item]) {
+  //     // setSelectedItem(item)
+  //   }
+  // }
+
+  const isGameOver = (locations: Locations) => {
+    if (locations.wolf === locations.sheep && boatLocation !== locations.wolf) {
+      return "The wolf ate the sheep!";
+    }
+    if (locations.sheep === locations.cabbage && boatLocation !== locations.sheep) {
+      return "The sheep ate the cabbage!"
+    }
+    return null;
   }
-  return false
-}
 
-// "left" と "right" のアイテムリストを生成
-const leftItems = Object.entries(locations)
-  .filter(([key, value]) => value === "left")
-  .map(([key]) => key) as ("wolf" | "sheep" | "cabbage")[];
+  const isGameWon = (locations: Locations) => {
+    console.log("isGameWon", locations);
+    if (locations.wolf === "left" && locations.sheep === "left" && locations.cabbage === "left") {
+      return true
+    }
+    return false
+  }
 
-const rightItems = Object.entries(locations)
-  .filter(([key, value]) => value === "right")
-  .map(([key]) => key) as ("wolf" | "sheep" | "cabbage")[];
+  // "left" と "right" のアイテムリストを生成
+  const leftItems = Object.entries(locations)
+    .filter(([key, value]) => value === "left")
+    .map(([key]) => key) as ("wolf" | "sheep" | "cabbage")[];
 
-return (
-  <DndProvider backend={HTML5Backend}>
-    <div style={{ display: "flex", justifyContent: "space-around", flexDirection: "column" }}>
-      <LeftSideItems items={leftItems} locations={locations}></LeftSideItems>
-      <RightSideItems items={rightItems} locations={locations}></RightSideItems>
-      <Boat boatLocation={boatLocation} selectedItem={selectedItem} setSelectedItem={setSelectedItem} onMoveComplete={onMoveComplete} setLocations={setLocations} locations={locations}></Boat>
-    </div>
-    <p>{boatLocation}</p>
-    {/* <p>selected: {selectedItem}</p> */}
-    <p>{count}times</p>
-    {/* <p>{selectedItem && locations[selectedItem.type]}</p> */}
+  const rightItems = Object.entries(locations)
+    .filter(([key, value]) => value === "right")
+    .map(([key]) => key) as ("wolf" | "sheep" | "cabbage")[];
 
-    <p>{selectedItem && selectedItem.type}</p>
-    <p>{rightItems}</p>
-    <button onClick={() => handleGo()}>GO!</button>
-    {/* <button onClick={() => setSelectedItem(null)}>Select None</button> */}
-    <button onClick={() => handleReset()}>最初から</button>
-  </DndProvider>
-)
+  return (
+    <DndProvider backend={HTML5Backend}>
+      <div style={{ display: "flex", justifyContent: "space-around", flexDirection: "column" }}>
+        <LeftSideItems items={leftItems} locations={locations}></LeftSideItems>
+        <RightSideItems items={rightItems} locations={locations}></RightSideItems>
+        <Boat boatLocation={boatLocation} selectedItem={selectedItem} setSelectedItem={setSelectedItem} onMoveComplete={onMoveComplete} setLocations={setLocations} locations={locations}></Boat>
+      </div>
+      <p>{boatLocation}</p>
+      {/* <p>selected: {selectedItem}</p> */}
+      <p>{count}times</p>
+      <p>{selectedItem && locations[selectedItem.type]}</p>
+
+      <p>{selectedItem && selectedItem.type}</p>
+      <p>{leftItems}</p>
+      <p>{locations.sheep}</p>
+      <button onClick={() => handleGo()}>GO!</button>
+      {/* <button onClick={() => setSelectedItem(null)}>Select None</button> */}
+      <button onClick={() => handleReset()}>最初から</button>
+    </DndProvider>
+  )
 }
 
 export default App;
