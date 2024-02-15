@@ -4,6 +4,8 @@ import { Item } from './components/Item';
 import { Boat } from './components/Boat';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { LeftSideItems } from './components/LeftSideItems';
+import { RightSideItems } from './components/RightSideItems';
 
 export type Location = "right" | "left" | "onboat"
 
@@ -80,6 +82,16 @@ function App() {
     }
     return false
   }
+
+  // "left" と "right" のアイテムリストを生成
+  const leftItems = Object.entries(locations)
+    .filter(([key, value]) => value === "left")
+    .map(([key]) => key);
+  
+  const rightItems = Object.entries(locations)
+    .filter(([key, value]) => value === "right")
+    .map(([key]) => key);
+  
   return (
     <DndProvider backend={HTML5Backend}>
       <div style={{display: "flex", justifyContent:"space-around", flexDirection: "column"}}>
@@ -87,6 +99,8 @@ function App() {
         <Item onClick={() => handleSelectItem("sheep")} src="/sheep.png" type="sheep" location={locations.sheep} onMoveComplete={onMoveComplete}></Item>
         <Item onClick={() => handleSelectItem("cabbage")} src="/cabbage.png" type="cabbage" location={locations.cabbage} onMoveComplete={onMoveComplete}></Item>
         <Boat locations={locations}></Boat>
+        <LeftSideItems items={leftItems}></LeftSideItems>
+        <RightSideItems items={rightItems}></RightSideItems>
       </div>
       <p>{locations.boat}</p>
       {/* <p>selected: {selectedItem}</p> */}
