@@ -8,12 +8,12 @@ import { LeftSideItems } from './components/LeftSideItems';
 import { RightSideItems } from './components/RightSideItems';
 
 export type Location = "right" | "left" | "onboat"
+export type BoatLocation = "right" | "left"
 
 export type Locations = {
   wolf: Location
   sheep: Location
   cabbage: Location
-  boat: Location
 }
 
 function App() {
@@ -21,8 +21,9 @@ function App() {
     wolf: "right",
     sheep: "right",
     cabbage: "right",
-    boat: "right",
   })
+
+  const [boatLocation, setBoatLocation] = useState<BoatLocation>("right");
   // const [selectedItem, setSelectedItem] = useState<"wolf" | "sheep" | "cabbage" | null>(null)
   const [count, setCount] = useState(0);
 
@@ -30,9 +31,9 @@ function App() {
     const newLocations = { ...locations }
     // if (item) {
     //   newLocations[item] = newLocations[item] === "right" ? "left" : "right";
-    // }
-    newLocations.boat = newLocations.boat === "right" ? "left" : "right";
+    // };
     setLocations(newLocations)
+    setBoatLocation(boatLocation === "right" ? "left" : "right")
     setCount(prev => prev + 1)
   }
 
@@ -54,23 +55,22 @@ function App() {
       wolf: "right",
       sheep: "right",
       cabbage: "right",
-      boat: "right",
     });
     // setSelectedItem(null);
     setCount(0);
   }
 
   const handleSelectItem = (item: "wolf" | "sheep" | "cabbage" | null) => {
-    if (item && locations.boat === locations[item]) {
+    if (item && boatLocation === locations[item]) {
       // setSelectedItem(item)
     }
   }
 
   const isGameOver = (locations: Locations) => {
-    if (locations.wolf === locations.sheep && locations.boat !== locations.wolf && locations.cabbage !== locations.wolf) {
+    if (locations.wolf === locations.sheep && boatLocation !== locations.wolf && locations.cabbage !== locations.wolf) {
       return "The wolf ate the sheep!";
     }
-    if (locations.sheep === locations.cabbage && locations.boat !== locations.sheep && locations.wolf !== locations.sheep) {
+    if (locations.sheep === locations.cabbage && boatLocation !== locations.sheep && locations.wolf !== locations.sheep) {
       return "The sheep ate the cabbage!"
     }
     return null;
@@ -95,11 +95,11 @@ function App() {
   return (
     <DndProvider backend={HTML5Backend}>
       <div style={{display: "flex", justifyContent:"space-around", flexDirection: "column"}}>
-        <Boat locations={locations}></Boat>
+        <Boat boatLocation={boatLocation}></Boat>
         <LeftSideItems items={leftItems}></LeftSideItems>
         <RightSideItems items={rightItems}></RightSideItems>
       </div>
-      <p>{locations.boat}</p>
+      <p>{boatLocation}</p>
       {/* <p>selected: {selectedItem}</p> */}
       <p>{count}times</p>
 

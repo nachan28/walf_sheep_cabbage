@@ -1,10 +1,10 @@
 import { useDrop } from "react-dnd";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Locations } from "../App";
+import { BoatLocation } from "../App";
 
 type Props = {
-    locations: Locations;
+    boatLocation: BoatLocation
 }
 
 type DraggableItem = {
@@ -15,10 +15,10 @@ type DraggableItem = {
 
 
 export const Boat = (props: Props) => {
-    const { locations } = props;
+    const { boatLocation } = props;
     useEffect(() => {
-        console.log("Updated locations in Boat:", locations);
-    }, [locations]);
+        console.log("Updated locations in Boat:", boatLocation);
+    }, [boatLocation]);
     const [boatItem, setBoatItem] = useState<DraggableItem | null>(null)
     const [{ isOver }, drop] = useDrop(
         () => ({
@@ -32,7 +32,6 @@ export const Boat = (props: Props) => {
     )
 
     const handleItemDropped = (item: DraggableItem) => {
-        console.log(locations[item.type], locations.boat)
         setBoatItem({ ...item })
     }
 
@@ -43,8 +42,8 @@ export const Boat = (props: Props) => {
 
     return (
         <motion.div
-            initial={locations.boat}
-            animate={locations.boat}
+            initial={boatLocation}
+            animate={boatLocation}
             variants={variants}
             transition={{ duration: 0.5 }}
             style={{
