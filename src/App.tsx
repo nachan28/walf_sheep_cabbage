@@ -7,6 +7,7 @@ import { LeftSideItems } from './components/LeftSideItems';
 import { RightSideItems } from './components/RightSideItems';
 import { DraggableItem } from './components/Boat';
 import { River } from './components/River';
+import { AppStateProvider, useAppState } from './AppStateContext';
 
 export type Location = "right" | "left" | "onboat"
 export type BoatLocation = "right" | "left"
@@ -26,6 +27,7 @@ function App() {
 
   const [boatLocation, setBoatLocation] = useState<BoatLocation>("right");
   const [selectedItem, setSelectedItem] = useState<DraggableItem | null>(null)
+  // const { selectedItem, setSelectedItem } = useAppState();
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -47,6 +49,7 @@ function App() {
     if (selectedItem) {
       setLocations((prev: Locations) => ({ ...prev, [selectedItem.type]: boatLocation }));
     }
+    console.log(selectedItem)
     setSelectedItem(null);
   }
 
@@ -90,57 +93,62 @@ function App() {
     .map(([key]) => key) as ("wolf" | "sheep" | "cabbage")[];
 
   return (
-    <River>
-      <DndProvider backend={HTML5Backend}>
-        <div style={{
-          display: "flex",
-          justifyContent: "space-around",
-          flexDirection: "column",
-          width: "100vw",
-          height: "100vh"
-        }}>
-          <LeftSideItems items={leftItems} locations={locations}></LeftSideItems>
-          <RightSideItems items={rightItems} locations={locations}></RightSideItems>
+    // <AppStateProvider>
+
+      <River>
+        <DndProvider backend={HTML5Backend}>
           <div style={{
             display: "flex",
-            height: "100vh",
-            alignItems: "center"
+            justifyContent: "space-around",
+            flexDirection: "column",
+            width: "100vw",
+            height: "100vh"
           }}>
-            <Boat boatLocation={boatLocation} selectedItem={selectedItem} setSelectedItem={setSelectedItem} onMoveComplete={onMoveComplete} setLocations={setLocations} locations={locations}></Boat>
+            <LeftSideItems items={leftItems} locations={locations}></LeftSideItems>
+            <RightSideItems items={rightItems} locations={locations}></RightSideItems>
+            <div style={{
+              display: "flex",
+              height: "100vh",
+              alignItems: "center"
+            }}>
+              <Boat boatLocation={boatLocation} selectedItem={selectedItem} setSelectedItem={setSelectedItem} onMoveComplete={onMoveComplete} setLocations={setLocations} locations={locations}></Boat>
+            </div>
+            <div style={{
+              display: "flex",
+              height: "300px",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "100px"
+            }}>
+              <h1>{count}times</h1>
+              <button onClick={() => handleGo()} style={{
+                width: "200px",
+                fontSize: "40px",
+                fontWeight: "bold",
+                border: "none",
+                borderRadius: "10px",
+                padding: "30px 0px",
+                backgroundColor: "#2D7BFF",
+                boxShadow: "10px 5px 5px gray",
+                color: "white"
+              }}>GO!</button>
+              <button onClick={() => handleReset()} style={{
+                width: "200px",
+                fontSize: "40px",
+                // fontWeight: "bold",
+                border: "none",
+                borderRadius: "10px",
+                padding: "30px 20px",
+                backgroundColor: "aliceblue",
+                boxShadow: "10px 5px 5px gray",
+              }}>Reset</button>
+            </div>
+            <p>{locations.cabbage}</p>
+            <p>selectedItem: {selectedItem && selectedItem.type}</p>
           </div>
-          <div style={{
-            display: "flex",
-            height: "300px",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "100px"
-          }}>
-            <h1>{count}times</h1>
-            <button onClick={() => handleGo()} style={{
-              width: "200px",
-              fontSize: "40px",
-              fontWeight: "bold",
-              border: "none",
-              borderRadius: "10px",
-              padding: "30px 0px",
-              backgroundColor: "#2D7BFF",
-              boxShadow: "10px 5px 5px gray",
-              color: "white"
-            }}>GO!</button>
-            <button onClick={() => handleReset()} style={{
-              width: "200px",
-              fontSize: "40px",
-              // fontWeight: "bold",
-              border: "none",
-              borderRadius: "10px",
-              padding: "30px 20px",
-              backgroundColor: "aliceblue",
-              boxShadow: "10px 5px 5px gray",
-            }}>Reset</button>
-          </div>
-        </div>
-      </DndProvider>
-    </River>
+        </DndProvider>
+      </River>
+    // </AppStateProvider>
   )
 }
 

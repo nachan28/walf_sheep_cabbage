@@ -1,6 +1,8 @@
 import { useDrop } from "react-dnd";
 import { motion } from "framer-motion";
 import { BoatLocation, Locations } from "../App";
+import { useEffect } from "react";
+import { useAppState } from "../AppStateContext";
 
 type Props = {
     boatLocation: BoatLocation
@@ -20,6 +22,8 @@ export type DraggableItem = {
 
 export const Boat = (props: Props) => {
     const { boatLocation, selectedItem, setSelectedItem, onMoveComplete, setLocations, locations } = props;
+    // const { selectedItem, setSelectedItem } = useAppState();
+
 
     const [{ isOver }, drop] = useDrop(
         () => ({
@@ -32,17 +36,32 @@ export const Boat = (props: Props) => {
         })
     )
 
+    useEffect(() => {
+        console.log("selectedItem changed,", selectedItem)
+    }, [selectedItem])
+
 
     const handleItemDropped = (item: DraggableItem) => {
-        if (selectedItem) {
-            console.log("if")
-            setLocations({ ...locations, [selectedItem.type]: locations[item.type], [item.type]: "onboat" })
-            setSelectedItem(item);
-        } else {
-            console.log("else")
-            setLocations({ ...locations, [item.type]: "onboat" })
-            setSelectedItem(item);
+        // if (selectedItem) {
+        //     console.log("if")
+        //     setLocations((prev: Locations) => ({ ...prev, [selectedItem.type]: prev[item.type], [item.type]: "onboat" }))
+        // } else {
+        //     console.log("else")
+        //     setLocations((prev: Locations) => ({ ...prev, [item.type]: "onboat" }))
+        // }
+        if (locations.wolf === "onboat") {
+            setLocations((prev: Locations) => ({ ...prev, "wolf": prev[item.type], [item.type]: "onboat" }))
+        } else if (locations.sheep === "onboat") {
+            setLocations((prev: Locations) => ({ ...prev, "sheep": prev[item.type], [item.type]: "onboat" }))
+        } else if (locations.cabbage === "onboat") {
+            setLocations((prev: Locations) => ({ ...prev, "cabbage": prev[item.type], [item.type]: "onboat" }))
+        }else {
+            console.log("else");
+            setLocations((prev: Locations) => ({ ...prev, [item.type]: "onboat" }))
         }
+        console.log("Before setSelectedItem", selectedItem)
+        setSelectedItem(item);
+        console.log("After setSelecteditem", selectedItem)
     }
 
     const variants = {
