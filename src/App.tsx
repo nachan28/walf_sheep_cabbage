@@ -26,8 +26,8 @@ function App() {
   })
 
   const [boatLocation, setBoatLocation] = useState<BoatLocation>("right");
-  const [selectedItem, setSelectedItem] = useState<DraggableItem | null>(null)
-  // const { selectedItem, setSelectedItem } = useAppState();
+  // const [selectedItem, setSelectedItem] = useState<DraggableItem | null>(null);
+  const { selectedItem, setSelectedItem } = useAppState();
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -93,10 +93,10 @@ function App() {
     .map(([key]) => key) as ("wolf" | "sheep" | "cabbage")[];
 
   return (
-    // <AppStateProvider>
+    <AppStateProvider>
 
       <River>
-        <DndProvider backend={HTML5Backend}>
+        {/* <DndProvider backend={HTML5Backend}> */}
           <div style={{
             display: "flex",
             justifyContent: "space-around",
@@ -111,7 +111,7 @@ function App() {
               height: "100vh",
               alignItems: "center"
             }}>
-              <Boat boatLocation={boatLocation} selectedItem={selectedItem} setSelectedItem={setSelectedItem} onMoveComplete={onMoveComplete} setLocations={setLocations} locations={locations}></Boat>
+              <Boat boatLocation={boatLocation} onMoveComplete={onMoveComplete} setLocations={setLocations} locations={locations}></Boat>
             </div>
             <div style={{
               display: "flex",
@@ -146,9 +146,9 @@ function App() {
             <p>{locations.cabbage}</p>
             <p>selectedItem: {selectedItem && selectedItem.type}</p>
           </div>
-        </DndProvider>
+        {/* </DndProvider> */}
       </River>
-    // </AppStateProvider>
+    </AppStateProvider>
   )
 }
 

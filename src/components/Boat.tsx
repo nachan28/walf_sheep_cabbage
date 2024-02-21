@@ -6,8 +6,8 @@ import { useAppState } from "../AppStateContext";
 
 type Props = {
     boatLocation: BoatLocation
-    selectedItem: DraggableItem | null
-    setSelectedItem: (item: DraggableItem) => void
+    // selectedItem: DraggableItem | null
+    // setSelectedItem: (item: DraggableItem) => void
     onMoveComplete: () => void
     locations: Locations
     setLocations: (value: Locations | ((prev: Locations) => Locations)) => void
@@ -21,20 +21,20 @@ export type DraggableItem = {
 
 
 export const Boat = (props: Props) => {
-    const { boatLocation, selectedItem, setSelectedItem, onMoveComplete, setLocations, locations } = props;
-    // const { selectedItem, setSelectedItem } = useAppState();
+    const { boatLocation, onMoveComplete, setLocations, locations } = props;
+    const { selectedItem, setSelectedItem } = useAppState();
 
 
-    const [{ isOver }, drop] = useDrop(
-        () => ({
-            accept: ["wolf", "sheep", "cabbage"],
-            canDrop: (item) => locations[item.type] === boatLocation,
-            drop: (item: DraggableItem) => handleItemDropped(item),
-            collect: monitor => ({
-                isOver: !!monitor.isOver()
-            })
-        })
-    )
+    // const [{ isOver }, drop] = useDrop(
+    //     () => ({
+    //         accept: ["wolf", "sheep", "cabbage"],
+    //         canDrop: (item) => locations[item.type] === boatLocation,
+    //         drop: (item: DraggableItem) => handleItemDropped(item),
+    //         collect: monitor => ({
+    //             isOver: !!monitor.isOver()
+    //         })
+    //     })
+    // )
 
     useEffect(() => {
         console.log("selectedItem changed,", selectedItem)
@@ -81,11 +81,11 @@ export const Boat = (props: Props) => {
             }}
             onAnimationComplete={onMoveComplete}
         >
-            <div
+            {/* <div
                 ref={drop}
                 style={{
                 }}
-            >
+            > */}
                 {selectedItem && (
                     <img src={selectedItem.src} alt={selectedItem.type} width="200px" style={{
                         position: "absolute",
@@ -93,7 +93,7 @@ export const Boat = (props: Props) => {
                     }} />
                 )}
                 <img src="/boat.png" alt="boat" width="300px" />
-            </div>
+            {/* </div> */}
         </motion.div>
     )
 }

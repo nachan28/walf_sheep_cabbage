@@ -7,36 +7,38 @@ type Props = {
     src: string;
     type: "wolf" | "sheep" | "cabbage"
     location: Location
+    onClick: () => void
 }
 
 export const Item = (props: Props) => {
-    const { src, type, location} = props
+    const { src, type, location, onClick} = props
 
 
-    useEffect(() => {
-    }, [location]);
+    // useEffect(() => {
+    // }, [location]);
 
-    const [{ isDragging }, drag] = useDrag(() => ({
-        type: type,
-        item: {type: type, src: src},
-        collect: monitor => ({
-            isDragging: !!monitor.isDragging(),
-        }),
-    }))
+    // const [{ isDragging }, drag] = useDrag(() => ({
+    //     type: type,
+    //     item: {type: type, src: src},
+    //     collect: monitor => ({
+    //         isDragging: !!monitor.isDragging(),
+    //     }),
+    // }))
 
-    const cursorStyle = isDragging ? "grabbing" : "grab";
+    // const cursorStyle = isDragging ? "grabbing" : "grab";
 
     return (
             <div
-                ref={drag}
+                // ref={drag}
                 style={{
                     scale: 0.8,
                     fontSize: 25,
                     fontWeight: 'bold',
-                    cursor: cursorStyle,
+                    // cursor: cursorStyle,
                 }}
             >
-                <img src={src} alt={type} width="250px" />
+                <img src={src} alt={type} width="250px" 
+                onClick={onClick}/>
             </div>
     )
 }
