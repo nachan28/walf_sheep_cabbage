@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import './App.scss';
 import { Boat } from './components/Boat/Boat';
-import { LeftSideItems } from './components/LeftSideItems';
-import { RightSideItems } from './components/RightSideItems';
+import { LeftSideItems } from './components/SideItems/LeftSideItems';
+import { RightSideItems } from './components/SideItems/RightSideItems';
 import { River } from './components/River';
 import { useAppState } from './AppStateContext';
 

@@ -1,6 +1,7 @@
-import { useAppState } from "../AppStateContext";
-import { Item } from "./Item/Item"
+import { useAppState } from "../../AppStateContext";
+import { Item } from "../Item/Item"
 import { SideItemProps } from "./RightSideItems"
+import "./SideItems.scss"
 
 export const LeftSideItems = ({ items }: SideItemProps) => {
     const { selectedItem, setSelectedItem, locations, setLocations } = useAppState();
@@ -19,12 +20,7 @@ export const LeftSideItems = ({ items }: SideItemProps) => {
         });
     }
     return (
-        <div className="left-item-container" style={{
-            position: "fixed",
-            top: "0",
-            left: "0",
-            margin: "20px"
-        }}>
+        <div className="left-item-container">
             {items.map((item, index) => (
                 <Item src={item === "wolf" ? "/wolf.png" :
                     item === "sheep" ? "/sheep.png" : "/cabbage.png"}

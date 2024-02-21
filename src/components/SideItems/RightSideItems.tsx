@@ -1,7 +1,6 @@
-import { useEffect } from "react"
-import { Locations } from "../App"
-import { useAppState } from "../AppStateContext"
-import { Item } from "./Item/Item"
+import { useAppState } from "../../AppStateContext"
+import { Item } from "../Item/Item"
+import "./SideItems.scss";
 
 export type SideItemProps = {
     items: ("wolf" | "sheep" | "cabbage")[]
@@ -23,17 +22,8 @@ export const RightSideItems = ({ items }: SideItemProps) => {
         });
     }
 
-    useEffect(() => {
-        console.log("RightSide location changed!")
-    }, [locations])
-
     return (
-        <div className="right-item-container" style={{
-            position: "fixed",
-            top: "0",
-            right: "0",
-            margin: "20px"
-        }}>
+        <div className="right-item-container">
             {items.map((item) => (
                 <Item src={item === "wolf" ? "/wolf.png" :
                     item === "sheep" ? "/sheep.png" : "/cabbage.png"}
