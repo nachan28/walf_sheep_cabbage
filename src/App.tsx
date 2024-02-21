@@ -130,8 +130,6 @@ function App() {
                 boxShadow: "10px 5px 5px gray",
               }}>Reset</button>
             </div>
-            <p>{locations.cabbage}</p>
-            <p>selectedItem: {selectedItem && selectedItem.type}</p>
           </div>
       </River>
   )
