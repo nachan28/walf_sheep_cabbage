@@ -1,25 +1,33 @@
+import { useEffect } from "react"
 import { Locations } from "../App"
 import { useAppState } from "../AppStateContext"
 import { Item } from "./Item"
 
 export type SideItemProps = {
     items: ("wolf" | "sheep" | "cabbage")[]
-    locations: Locations
 }
 
 
 
-export const RightSideItems = ({ items, locations }: SideItemProps) => {
+export const RightSideItems = ({ items}: SideItemProps) => {
 
-    const { setSelectedItem } = useAppState();
+    const { selectedItem, setSelectedItem, locations, setLocations } = useAppState();
     const handleItemClicked = (item: ("wolf" | "sheep" | "cabbage")) => {
-        console.log("clicked!")
+        if (selectedItem) {
+            setLocations((prev) => ({ ...prev, [selectedItem.type]: prev[item], [item]: "onboat" }))
+        } else {
+            setLocations((prev) => ({ ...prev, [item]: "onboat" }))
+        }
         setSelectedItem({
             type: item,
             src: item === "wolf" ? "/wolf.png" :
                 item === "sheep" ? "/sheep.png" : "/cabbage.png"
-        })
+        });
     }
+
+    useEffect(() => {
+        console.log("RightSide location changed!")
+    }, [locations])
 
     return (
         <div className="right-item-container" style={{

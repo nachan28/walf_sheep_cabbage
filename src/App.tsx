@@ -19,21 +19,15 @@ export type Locations = {
 }
 
 function App() {
-  const [locations, setLocations] = useState<Locations>({
-    wolf: "right",
-    sheep: "right",
-    cabbage: "right",
-  })
-
+  const { selectedItem, setSelectedItem, locations, setLocations } = useAppState();
   const [boatLocation, setBoatLocation] = useState<BoatLocation>("right");
-  // const [selectedItem, setSelectedItem] = useState<DraggableItem | null>(null);
-  const { selectedItem, setSelectedItem } = useAppState();
   const [count, setCount] = useState(0);
 
   useEffect(() => {
     if (isGameWon(locations)) {
       alert("Congratulations! You won!");
     }
+    console.log("locations changed!")
   }, [locations])
 
   const handleGo = () => {
@@ -93,8 +87,6 @@ function App() {
     .map(([key]) => key) as ("wolf" | "sheep" | "cabbage")[];
 
   return (
-    <AppStateProvider>
-
       <River>
         {/* <DndProvider backend={HTML5Backend}> */}
           <div style={{
@@ -104,14 +96,14 @@ function App() {
             width: "100vw",
             height: "100vh"
           }}>
-            <LeftSideItems items={leftItems} locations={locations}></LeftSideItems>
-            <RightSideItems items={rightItems} locations={locations}></RightSideItems>
+            <LeftSideItems items={leftItems}></LeftSideItems>
+            <RightSideItems items={rightItems}></RightSideItems>
             <div style={{
               display: "flex",
               height: "100vh",
               alignItems: "center"
             }}>
-              <Boat boatLocation={boatLocation} onMoveComplete={onMoveComplete} setLocations={setLocations} locations={locations}></Boat>
+              <Boat boatLocation={boatLocation} onMoveComplete={onMoveComplete}></Boat>
             </div>
             <div style={{
               display: "flex",
@@ -148,7 +140,6 @@ function App() {
           </div>
         {/* </DndProvider> */}
       </River>
-    </AppStateProvider>
   )
 }
 
