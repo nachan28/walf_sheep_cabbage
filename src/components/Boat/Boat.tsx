@@ -36,7 +36,7 @@ export const Boat = (props: Props) => {
             {selectedItem && (
                 <img src={selectedItem.src} alt={selectedItem.type} width="200px" className="selected-item" />
             )}
-            <img src="/boat.png" alt="boat" width="300px" />
+            <img src="/boat.png" alt="boat" className="boat-img" />
         </motion.div>
     )
 }
