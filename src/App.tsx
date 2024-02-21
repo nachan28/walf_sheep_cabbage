@@ -39,6 +39,9 @@ function App() {
     if (selectedItem) {
       setLocations((prev: Locations) => ({ ...prev, [selectedItem.type]: boatLocation }));
     }
+    if (gameOverMessage) {
+      handleReset()
+    }
     console.log(selectedItem)
     setSelectedItem(null);
   }
