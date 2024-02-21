@@ -24,7 +24,6 @@ function App() {
     if (isGameWon(locations)) {
       alert("Congratulations! You won!");
     }
-    console.log("locations changed!")
   }, [locations])
 
   const handleGo = () => {
