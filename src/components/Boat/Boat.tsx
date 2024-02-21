@@ -20,8 +20,8 @@ export const Boat = (props: Props) => {
     const { selectedItem } = useAppState();
 
     const variants = {
-        left: { x: 500 },
-        right: { x: 1000 },
+        left: { x: 600 },
+        right: { x: 900 },
     };
 
     return (
