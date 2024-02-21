@@ -1,13 +1,13 @@
 import { useEffect } from "react"
 import { Locations } from "../App"
 import { useAppState } from "../AppStateContext"
-import { Item } from "./Item"
+import { Item } from "./Item/Item"
 
 export type SideItemProps = {
     items: ("wolf" | "sheep" | "cabbage")[]
 }
 
-export const RightSideItems = ({ items}: SideItemProps) => {
+export const RightSideItems = ({ items }: SideItemProps) => {
 
     const { selectedItem, setSelectedItem, locations, setLocations } = useAppState();
     const handleItemClicked = (item: ("wolf" | "sheep" | "cabbage")) => {

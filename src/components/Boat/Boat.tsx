@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { BoatLocation } from "../App";
-import { useAppState } from "../AppStateContext";
+import { BoatLocation } from "../../App";
+import { useAppState } from "../../AppStateContext";
+import "./Boat.scss";
 
 type Props = {
     boatLocation: BoatLocation
@@ -15,7 +16,7 @@ export type DraggableItem = {
 
 
 export const Boat = (props: Props) => {
-    const { boatLocation, onMoveComplete} = props;
+    const { boatLocation, onMoveComplete } = props;
     const { selectedItem } = useAppState();
 
     const variants = {
@@ -29,19 +30,13 @@ export const Boat = (props: Props) => {
             animate={boatLocation}
             variants={variants}
             transition={{ duration: 0.5 }}
-            style={{
-                position: 'relative',
-                width: '200px',
-            }}
+            className="boat-wrapper"
             onAnimationComplete={onMoveComplete}
         >
-                {selectedItem && (
-                    <img src={selectedItem.src} alt={selectedItem.type} width="200px" style={{
-                        position: "absolute",
-                        zIndex: -1,
-                    }} />
-                )}
-                <img src="/boat.png" alt="boat" width="300px" />
+            {selectedItem && (
+                <img src={selectedItem.src} alt={selectedItem.type} width="200px" className="selected-item" />
+            )}
+            <img src="/boat.png" alt="boat" width="300px" />
         </motion.div>
     )
 }

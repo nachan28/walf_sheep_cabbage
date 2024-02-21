@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import './App.css';
-import { Boat } from './components/Boat';
+import './App.scss';
+import { Boat } from './components/Boat/Boat';
 import { LeftSideItems } from './components/LeftSideItems';
 import { RightSideItems } from './components/RightSideItems';
 import { River } from './components/River';
@@ -84,54 +84,20 @@ function App() {
     .map(([key]) => key) as ("wolf" | "sheep" | "cabbage")[];
 
   return (
-      <River>
-          <div style={{
-            display: "flex",
-            justifyContent: "space-around",
-            flexDirection: "column",
-            width: "100vw",
-            height: "100vh"
-          }}>
-            <LeftSideItems items={leftItems}></LeftSideItems>
-            <RightSideItems items={rightItems}></RightSideItems>
-            <div style={{
-              display: "flex",
-              height: "100vh",
-              alignItems: "center"
-            }}>
-              <Boat boatLocation={boatLocation} onMoveComplete={onMoveComplete}></Boat>
-            </div>
-            <div style={{
-              display: "flex",
-              height: "300px",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: "100px"
-            }}>
-              <h1>{count}times</h1>
-              <button onClick={() => handleGo()} style={{
-                width: "200px",
-                fontSize: "40px",
-                fontWeight: "bold",
-                border: "none",
-                borderRadius: "10px",
-                padding: "30px 0px",
-                backgroundColor: "#2D7BFF",
-                boxShadow: "10px 5px 5px gray",
-                color: "white"
-              }}>GO!</button>
-              <button onClick={() => handleReset()} style={{
-                width: "200px",
-                fontSize: "40px",
-                border: "none",
-                borderRadius: "10px",
-                padding: "30px 20px",
-                backgroundColor: "aliceblue",
-                boxShadow: "10px 5px 5px gray",
-              }}>Reset</button>
-            </div>
-          </div>
-      </River>
+    <River>
+      <div className="container">
+        <LeftSideItems items={leftItems}></LeftSideItems>
+        <RightSideItems items={rightItems}></RightSideItems>
+        <div className='boat-container'>
+          <Boat boatLocation={boatLocation} onMoveComplete={onMoveComplete}></Boat>
+        </div>
+        <div className='buttons-container'>
+          <h1>{count}times</h1>
+          <button onClick={() => handleGo()} className='button go-button'>GO!</button>
+          <button onClick={() => handleReset()} className='button reset-button'>Reset</button>
+        </div>
+      </div>
+    </River>
   )
 }
 

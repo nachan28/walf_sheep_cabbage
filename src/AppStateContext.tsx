@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode, FC } from 'react';
-import { DraggableItem } from './components/Boat';
+import { DraggableItem } from './components/Boat/Boat';
 import { Locations } from './App';
 
 type AppState = {
