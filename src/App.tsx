@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { Boat } from './components/Boat';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 import { LeftSideItems } from './components/LeftSideItems';
 import { RightSideItems } from './components/RightSideItems';
-import { DraggableItem } from './components/Boat';
 import { River } from './components/River';
-import { AppStateProvider, useAppState } from './AppStateContext';
+import { useAppState } from './AppStateContext';
 
 export type Location = "right" | "left" | "onboat"
 export type BoatLocation = "right" | "left"
@@ -88,7 +85,6 @@ function App() {
 
   return (
       <River>
-        {/* <DndProvider backend={HTML5Backend}> */}
           <div style={{
             display: "flex",
             justifyContent: "space-around",
@@ -127,7 +123,6 @@ function App() {
               <button onClick={() => handleReset()} style={{
                 width: "200px",
                 fontSize: "40px",
-                // fontWeight: "bold",
                 border: "none",
                 borderRadius: "10px",
                 padding: "30px 20px",
@@ -138,7 +133,6 @@ function App() {
             <p>{locations.cabbage}</p>
             <p>selectedItem: {selectedItem && selectedItem.type}</p>
           </div>
-        {/* </DndProvider> */}
       </River>
   )
 }

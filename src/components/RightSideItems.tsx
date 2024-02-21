@@ -7,8 +7,6 @@ export type SideItemProps = {
     items: ("wolf" | "sheep" | "cabbage")[]
 }
 
-
-
 export const RightSideItems = ({ items}: SideItemProps) => {
 
     const { selectedItem, setSelectedItem, locations, setLocations } = useAppState();
