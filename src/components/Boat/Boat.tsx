@@ -18,11 +18,11 @@ export type DraggableItem = {
 export const Boat = (props: Props) => {
     const { boatLocation, onMoveComplete } = props;
     const { selectedItem } = useAppState();
-    
+
     const boatWidth = 200;
     const variants = {
-        left: { x: `calc(30vw - ${boatWidth / 2}px)` }, 
-    right: { x: `calc(70vw - ${boatWidth}px)` }
+        left: { x: `calc(30vw - ${boatWidth / 2}px)` },
+        right: { x: `calc(70vw - ${boatWidth}px)` }
     };
 
     return (

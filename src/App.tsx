@@ -23,6 +23,7 @@ function App() {
   useEffect(() => {
     if (isGameWon(locations)) {
       alert("Congratulations! You won!");
+      handleReset()
     }
   }, [locations])
 
@@ -42,7 +43,6 @@ function App() {
     if (gameOverMessage) {
       handleReset()
     }
-    console.log(selectedItem)
     setSelectedItem(null);
   }
 
