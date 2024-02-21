@@ -8,6 +8,10 @@ export const River = ({ children }: RiverProps) => {
         <div style={{ 
             backgroundImage: "url('/river.jpg')",
             backgroundSize: "cover",
+            backgroundPosition: "center center",
+            backgroundRepeat: "no-repeat",
+            // height: "100vh",
+            width: "100vw",
             zIndex: -200
         }}>
             {children}

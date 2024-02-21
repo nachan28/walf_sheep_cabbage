@@ -1,4 +1,5 @@
 import { Location } from "../../App";
+import "./Item.scss"
 
 type Props = {
     src: string;
@@ -11,10 +12,8 @@ export const Item = (props: Props) => {
     const { src, type, onClick } = props
 
     return (
-        <div
-            className="item"
-        >
-            <img src={src} alt={type} width="250px"
+        <div>
+            <img src={src} alt={type} className="item-img"
                 onClick={onClick} />
         </div>
     )

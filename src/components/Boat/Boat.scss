@@ -1,6 +1,7 @@
 .boat-wrapper {
   position: relative;
-  width: 200px;
+  width: auto;
+  max-width: 200px;
 }
 
 .selected-item {

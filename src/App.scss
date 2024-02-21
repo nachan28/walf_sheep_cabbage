@@ -37,6 +37,32 @@
   transition: all 0.3s;
 }
 
+@media (max-width: 768px) {
+  .button {
+    width: 150px;
+    font-size: 30px;
+    padding: 20px 0px;
+  }
+
+  .button-container {
+    gap: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .button {
+    width: 100px;
+    font-size: 20px;
+    padding: 15px 0;
+  }
+
+  .buttons-container {
+    flex-direction: column; /* ボタンを縦に並べる */
+    height: auto; /* コンテナの高さを自動調整 */
+    gap: 20px;
+  }
+}
+
 .go-button {
   font-weight: bold;
   background-color: #2d7bff;
